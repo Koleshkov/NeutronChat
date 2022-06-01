@@ -1,0 +1,10 @@
+﻿
+.authorize_layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;
+    height: 90vh;
+    width: 100%;
+}

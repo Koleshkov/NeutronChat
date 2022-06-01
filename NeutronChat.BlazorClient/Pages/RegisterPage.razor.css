@@ -1,0 +1,24 @@
+﻿.authorize_layout {
+    display: flex;
+    justify-content: center;
+    margin: auto 0;
+}
+.input_group{
+    padding:10px 0 0 0;
+}
+
+.auth_form_title{
+    text-align:center;
+    font-size:16pt;
+    font-weight:bold;
+    
+}
+.input_btn_group{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+
+}
+.btn{
+    margin:10px;
+} 

@@ -1,0 +1,51 @@
+﻿@page "/"
+@page "/Authentication/Login"
+@layout AuthorizeLayout
+
+@using NeutronChat.Domain.Requests
+
+@inject AuthenticationStateProvider AuthenticationStateProvider;
+@inject NavigationManager NavigationManager;
+
+<div class="authorize_layout">
+    <EditForm Model="@loginRequest" class="auth_editform" OnValidSubmit="@LoginAction">
+        <DataAnnotationsValidator />
+        <label class="auth_form_title">Вход</label>
+        <div class="input_group">
+            <label class="input_title">Имя пользователя:</label>
+            <InputText class="form-control" @bind-Value="@loginRequest.Email" />
+            <ValidationMessage For="@(()=>loginRequest.Email)" />
+        </div>
+        <div class="input_group">
+            <label class="input_title">Пароль:</label>
+            <InputText type="password" class="form-control" @bind-Value="@loginRequest.Password" />
+            <ValidationMessage For="@(()=>loginRequest.Password)" />
+        </div>
+        <div class="input_btn_group">
+            <input type="submit" class="btn btn-primary" value="Войти" />
+            <a class="btn btn-success" href="/Authentication/Register">Регистрация</a>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+    private LoginRequest loginRequest = new LoginRequest();
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    private async Task<bool> LoginAction()
+    {
+        var authenticationStateProvider = ((CustomAuthenticationStateProvider)AuthenticationStateProvider);
+
+        await authenticationStateProvider.MarkUserAsAuthenticatedAsync(loginRequest);
+
+        NavigationManager.NavigateTo("/profile");
+
+        return await Task.FromResult(true);
+    }
+}

@@ -1,0 +1,48 @@
+﻿@inject NavigationManager NavigationManager;
+@inject AuthenticationStateProvider AuthStateProvider;
+
+<div class="sidebar">
+    <div class="sidebar_header">
+        <div style="height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-image:url('/img/profile.jpg');
+            background-size:cover;" />
+        <a href="#" class="sidebar_user_name">
+            @UserName
+        </a>
+    </div>
+    <div class="sidebar_menu">
+            <NavLink class="sidebar_menu_item" href="Profile" Match="NavLinkMatch.All">
+                <span class="oi oi-person"></span> Профиль
+            </NavLink>
+            <NavLink class="sidebar_menu_item" href="Messages">
+                <span class="oi oi-envelope-closed"></span> Сообщения
+            </NavLink>
+            <NavLink class="sidebar_menu_item" href="Contacts" >
+                <span class="oi oi-people"></span> Контакты
+            </NavLink>
+            <NavLink class="sidebar_menu_item" href="Settings" >
+                <span class="oi oi-wrench"></span> Настройки
+            </NavLink>
+            <a class="sidebar_menu_item logout" @onclick="LogoutAction">
+                <span class="oi oi-account-logout"></span> Выход
+            </a>
+    </div>
+</div>
+
+
+@code {
+        [Parameter]
+        public RenderFragment? ChildContent { get; set; }
+
+        [Parameter]
+        public string UserName { get; set; } = "User Name";
+
+        private async Task LogoutAction()
+        {
+            var auth = (CustomAuthenticationStateProvider)AuthStateProvider;
+            await auth.MarkUserAsLoggedOutAsync();
+            NavigationManager.NavigateTo("/");
+        }
+}

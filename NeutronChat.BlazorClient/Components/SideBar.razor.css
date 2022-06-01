@@ -1,0 +1,39 @@
+.sidebar {
+    background-color: #323233;
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar_header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin: 10px 10px 5px; 10px;
+}
+
+.profile_img {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background-image: url('/img/DSC08316.jpg');
+    background-size: cover;
+}
+
+.sidebar_user_name {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12pt;
+    margin: 0 0 0 10px;
+}
+
+.sidebar_menu {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+span {
+    font-size: 12pt;
+}

@@ -1,0 +1,51 @@
+﻿@page "/Authentication/Register"
+@layout AuthorizeLayout
+
+@using NeutronChat.BlazorClient.Services
+@using NeutronChat.Domain.Requests
+
+@inject IAuthenticationService AuthenticationService;
+@inject NavigationManager NaviagationManager;
+
+<div class="authorize_layout">
+    <EditForm Model="@registerRequest" class="auth_editform" OnValidSubmit="@RegisterAction">
+        <DataAnnotationsValidator/>
+        <label class="auth_form_title">Регистрация</label>
+    <div class="input_group">
+        <label class="input_title">Имя пользователя:</label>
+        <InputText class="form-control" @bind-Value="@registerRequest.UserName" />
+        <ValidationMessage For="@(()=>registerRequest.UserName)"/>
+    </div>
+     <div class="input_group">
+        <label class="input_title">Email:</label>
+        <InputText class="form-control" @bind-Value="@registerRequest.Email" />
+        <ValidationMessage For="@(()=>registerRequest.Email)"/>
+    </div>
+    <div class="input_group">
+        <label class="input_title">Пароль:</label>
+        <InputText type="password" class="form-control" @bind-Value="@registerRequest.Password" />
+        <ValidationMessage For="@(()=>registerRequest.Password)"/>
+    </div>
+    <div class="input_group">
+        <label class="input_title">Подтверждение пароля:</label>
+        <InputText type="password" class="form-control" @bind-Value="@registerRequest.ConfirmPassword" />
+        <ValidationMessage For="@(()=>registerRequest.ConfirmPassword)"/>
+    </div>
+    <div class="input_btn_group">
+        <input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
+        <a class="btn btn-secondary" href="/Authentication/Login">Вход</a>
+    </div>
+
+</EditForm>
+</div>
+
+@code{
+    private RegisterRequest registerRequest = new RegisterRequest();
+
+    public async void RegisterAction()
+    {
+        var response = await AuthenticationService.RegisterUserAsync(registerRequest);
+
+        if (response != null) { } NaviagationManager.NavigateTo("/Authentication/Login");
+    }
+}

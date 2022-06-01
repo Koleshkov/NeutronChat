@@ -1,0 +1,31 @@
+﻿<div class="@orientationClass">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string? Orientation { get; set; }
+
+
+    private string orientationClass = "horizontal_stacklayout";
+
+    protected override void OnInitialized()
+    {
+        switch (Orientation)
+        {
+            case "Horizontal":
+                orientationClass="horizontal_stacklayout";
+                break;
+            case "Vertical":
+                orientationClass="vertical_stacklayout";
+                break;
+            default:
+                orientationClass="horizontal_stacklayout";
+                break;
+        }
+        base.OnInitialized();
+    }
+}

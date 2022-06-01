@@ -1,0 +1,24 @@
+﻿
+<div class="navbar_container">
+    <div class="navbar_logo">
+        <img src="@LogoUri"/>
+        <a href="#" class="nabar_brand">
+            @Title
+        </a>
+    </div>
+
+    <div class="navbar_menu">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = "Title";
+
+    [Parameter]
+    public string LogoUri { get; set; } = "/";
+}

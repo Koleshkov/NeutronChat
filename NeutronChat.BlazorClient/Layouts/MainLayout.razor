@@ -1,0 +1,49 @@
+﻿@inherits LayoutComponentBase
+
+@inject NavigationManager NavigationManager
+
+<StackLayout Orientation="Vertical">
+    <NavBar Title="NChat" LogoUri="/img/logo.png" />
+
+    <AuthorizeView>
+        <Authorized>
+            <StackLayout Orientation="Horizontal">
+                <SideBar UserName="@context.User.Identity.Name">
+
+                </SideBar>
+                <StackLayout Orientation="Vertical">
+                    @Body
+                </StackLayout>
+            </StackLayout>
+        </Authorized>
+        <NotAuthorized>
+            <a href="#">Вам отказано в доступе, войти?</a>
+        </NotAuthorized>
+    </AuthorizeView>
+</StackLayout>
+
+
+@code {
+    [CascadingParameter]
+    protected Task<AuthenticationState>? AuthenticationState { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthenticationState!=null)
+        {
+            var identity = (await AuthenticationState).User.Identity;
+            if (identity!=null)
+            {
+                if(!identity.IsAuthenticated)
+                {
+                    NavigationManager.NavigateTo("/");
+                }           
+            }
+            
+        }
+
+        await base.OnInitializedAsync();
+    }
+}
+
